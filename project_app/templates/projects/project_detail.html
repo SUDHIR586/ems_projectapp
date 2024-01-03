@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block body_block %}
+<div class="container">
+    <div class="jumbotron">
+        <div class="page-title">
+            <h2>Project details</h2>
+        </div>
+        <div class="detail-view-content">
+            <ul>
+                <li><b>Name: </b> {{user_project.name}} </li>
+                <li><b>Client: </b> {{user_project.client}} </li>
+                <li><b>Contact: </b> {{user_project.contact}} </li>
+                <li><b>Number1: </b> {{user_project.number1}} </li>
+                <li><b>Number2: </b> {{user_project.number2}} </li>
+                <li><b>Status: </b> {{user_project.status}} </li>
+                <li><b>Project Manager: </b> {{user_project.id_project_pm.get_full_name}} </li>
+                <li>
+                    <b>Pracownicy: </b>
+                    {% for employee in user_project.id_employee.all %}
+                        {{employee.get_full_name}}
+                    {% endfor %}
+                </li>
+
+                <li><b>Comments: </b><br> {{user_project.commants|safe|linebreaksbr}} </li>
+            </ul>
+        </div>
+        <a class="detail-view-btn btn btn-dark" href="javascript:history.back()">Return</a>
+
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% load django_bootstrap5 %}
+{% load static %}
+
+{% block head_block %}
+    {{ block.super }}
+    {{ form.media }}
+{% endblock %}
+
+{% block body_block %}
+
+<div class="container">
+    <h1 class="page-title">Create a project</h1>
+
+    <form method="POST" action="{% url 'project_app:project_create' %}" class="create-view">
+        {% csrf_token %}
+        {% bootstrap_form form %}
+        <div class="text-center">
+            <input type="submit" value="Create" class="btn-action btn btn-primary btn-large">
+        </div>
+    </form>
+</div>
+
+{% endblock %}

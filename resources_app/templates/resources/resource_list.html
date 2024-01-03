@@ -1,0 +1,116 @@
+{% extends "base.html" %}
+{% load django_bootstrap5 %}
+{% load static %}
+{% load ems_extras %}
+
+{% block body_block %}
+
+<div class="container">
+    <div class="page-title">
+        <h2>Resources</h2>
+    </div>
+
+    {% if user.is_superuser %}
+        <div class="text-center">
+            <a class="btn btn-primary" href="{% url 'resources_app:resource_create' %}">Add a resource</a>
+        </div>
+    {% endif %}
+
+    <div class="search-bar">
+    <form class="form-inline" action="" method="GET">
+        <div class="input-group">
+            <input type="search" class="form-control" name="search_query" placeholder="search" required>
+            <select class="search-select" name="search_type">
+                <option value="name" selected>Name</option>
+            </select>
+            <div class="input-group-append search-button">
+                <button class="btn btn-primary" type="submit">Search</button>
+            </div>
+        </div>
+    </form>
+    </div>
+
+      <table class="table table-bordered table-hover">
+            <thead class="thead-light">
+                <tr>
+                    <th scope="col">Options</th>
+                    <th scope="col">No.</th>
+                    <th scope="col">Photo</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Model</th>
+                    <th scope="col">State</th>
+                    <th scope="col">Borrower</th>
+                    <th scope="col">Year of production</th>
+                    <th scope="col">Mark</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for resource in resources %}
+                <tr>
+                    <td>
+
+                        {% if user.is_superuser %}
+
+                        {% endif %}
+                    </td>
+
+                    <td>{{ forloop.counter }}</td>
+
+                    {% if resource.image %}
+                        <td> <img src="{{resource.image.url}}" alt="" width="60px" height="60px"> </td>
+                    {% else %}
+                        <td></td>
+                    {% endif %}
+
+                    <td>{{resource.name|check_empty}}</td>
+                    <td>{{resource.model|check_empty}}</td>
+                    <td>{{resource.resource_state}}</td>
+                    <td>{{resource.user.get_full_name}}</td>
+                    <td>{{resource.production_year}}</td>
+                    <td>{{resource.brand}}</td>
+
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+    <!-- pagination bar -->
+    <div class="pagination_bar">
+        {% if is_paginated %}
+        <div class="btn-group pagination_bar" role="group">
+
+            {% if page_obj.has_previous %}
+                <a class="btn btn-light disable" href="?page={{ page_obj.previous_page_number }}">&laquo;</a>
+            {% else %}
+                <a class="btn btn-light"><span>&laquo;</span></a>
+            {% endif %}
+
+            {% for i in paginator.page_range %}
+                {% if page_obj.number == i %}
+                <a  class="btn btn-dark active"><span>{{ i }} <span class="sr-only">(current)</span></span></a>
+                {% else %}
+                <a class="btn btn-light" href="?page={{ i }}">{{ i }}</a>
+                {% endif %}
+            {% endfor %}
+
+            {% if page_obj.has_next %}
+            <a class="btn btn-light" href="?page={{ page_obj.next_page_number }}">&raquo;</a>
+            {% else %}
+            <a type="button" class="btn btn-light"><span>&raquo;</span></a>
+            {% endif %}
+        </div>
+        {% endif %}
+    </div>
+
+    <div class="table-legend">
+        <p><b>Legend:</b></p>
+        <p><img src="{% static 'website_icons/info_ico.png' %}" alt="Details" width="20" height="20">Resource details</p>
+        {% if user.is_superuser %}
+            <p><img src="{% static 'website_icons/del_ico.png' %}" alt="Delete" width="20" height="20">Delete a resource</p>
+            <p><img src="{% static 'website_icons/edit_ico.png' %}" alt="Edit" width="20" height="20">Edit resource</p>
+        {% endif %}
+    </div>
+
+</div>
+
+{% endblock body_block %}

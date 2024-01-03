@@ -1,0 +1,67 @@
+from django import forms
+from holiday_app import models
+from django_flatpickr.widgets import DatePickerInput, TimePickerInput, DateTimePickerInput
+from dal import autocomplete
+
+class HolidayForm(forms.ModelForm):
+    class Meta:
+        model = models.HolidayModel
+        fields = '__all__'
+        widgets = {
+            'approver_user': autocomplete.ModelSelect2(
+                url='user_admin_autocomplete',
+                attrs={
+                    'data-minimum-input-length': 3,
+                    },
+                ),
+
+            'start_date': DatePickerInput(),
+            'end_date': DatePickerInput(),
+        }
+
+    def __init__(self, user, *args, **kwargs):
+        #jesli user nie jest adminem to moze zaplanowac urlop tylko sobie, i nie ma pol
+        #w widoku trzeba przeslonic metode get_form_kwargs() aby dodac usera do formularza
+        super(HolidayForm, self).__init__(*args, **kwargs)
+        if user.is_superuser == False:
+            self.fields['user'].queryset = models.MyUser.objects.filter(id=user.id)
+            self.fields.pop('is_used')
+            self.fields.pop('is_approved')
+        else:
+            self.fields.pop('is_used')
+
+
+    def clean(self):
+        start_date = self.cleaned_data.get("start_date")
+        end_date = self.cleaned_data.get("end_date")
+        print(start_date, end_date)
+        if end_date < start_date:
+            msg = "The start date is later than the end date"
+            self._errors["end_date"] = self.error_class([msg])
+
+
+
+class HolidayUpdateForm(forms.ModelForm):
+    class Meta:
+        model = models.HolidayModel
+        fields = '__all__'
+        widgets = {
+            'approver_user': autocomplete.ModelSelect2(
+                url='user_admin_autocomplete',
+                attrs={
+                    'data-minimum-input-length': 3,
+                    },
+                ),
+
+            'start_date': DatePickerInput(),
+            'end_date': DatePickerInput(),
+        }
+
+
+    def clean(self):
+        start_date = self.cleaned_data.get("start_date")
+        end_date = self.cleaned_data.get("end_date")
+        print(start_date, end_date)
+        if end_date < start_date:
+            msg = "The start date is later than the end date"
+            self._errors["end_date"] = self.error_class([msg])

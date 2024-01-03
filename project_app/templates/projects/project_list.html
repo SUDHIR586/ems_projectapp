@@ -1,0 +1,114 @@
+{% extends "base.html" %}
+{% load django_bootstrap5 %}
+{% load static %}
+{% load ems_extras %}
+
+{% block body_block %}
+
+<div class="container">
+    <div class="page-title">
+        <h2>Projects</h2>
+    </div>
+
+    {% if user.is_superuser %}
+        <div class="text-center">
+            <a class="btn btn-primary" href="{% url 'project_app:project_create' %}">Add a project</a>
+        </div>
+    {% endif %}
+
+
+    <div class="search-bar">
+    <form class="form-inline" action="{% url 'project_app:projects_list' %}" method="GET">
+        <div class="input-group">
+            <input type="search" class="form-control" name="search_query" placeholder="search">
+            <select class="search-select" name="search_type">
+                <option value="name" selected>Name</option>
+                <option value="client" selected>Client</option>
+                <option value="number">Number</option>
+                <option value="PM">Project Manager</option>
+            </select>
+            <div class="input-group-append search-button">
+                <button class="btn btn-primary" type="submit">Search</button>
+            </div>
+        </div>
+    </form>
+    </div>
+
+      <table class="table table-bordered table-hover">
+            <thead class="thead-light">
+                <tr>
+                    <th scope="col">Options</th>
+                    <th scope="col">No.</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Client</th>
+                    <th scope="col">Project Manager</th>
+                    <th scope="col">Number</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Start date</th>
+                    <th scope="col">End date</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for project in user_projects_list %}
+                <tr>
+                    <td>
+                        <a href="{% url 'project_app:project_detail' pk=project.pk %}"><img src="{% static 'website_icons/info_ico.png' %}" alt="Details" width="20" height="20"></a>
+                        {% if user.is_superuser %}
+                            <a href="{% url 'project_app:project_delete' pk=project.pk %}"><img src="{% static 'website_icons/del_ico.png' %}" alt="Delete" width="20" height="20"></a>
+                            <a href="{% url 'project_app:project_update' pk=project.pk %}"><img src="{% static 'website_icons/edit_ico.png' %}" alt="Edit" width="20" height="20"></a>
+                        {% endif %}
+                    </td>
+
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{project.name|check_empty}}</td>
+                    <td>{{project.client|check_empty}}</td>
+                    <td>{{project.id_project_pm.get_full_name|check_empty}}</td>
+                    <td>{{project.number|check_empty}}</td>
+                    <td>{{project.status|check_empty}}</td>
+                    <td>{{project.start_date|check_empty}}</td>
+                    <td>{{project.end_date|check_empty}}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+    <!-- pagination bar -->
+    <div class="pagination_bar">
+        {% if is_paginated %}
+        <div class="btn-group pagination_bar" role="group">
+
+            {% if page_obj.has_previous %}
+                <a class="btn btn-light disable" href="?page={{ page_obj.previous_page_number }}">&laquo;</a>
+            {% else %}
+                <a class="btn btn-light"><span>&laquo;</span></a>
+            {% endif %}
+
+            {% for i in paginator.page_range %}
+                {% if page_obj.number == i %}
+                <a  class="btn btn-dark active"><span>{{ i }} <span class="sr-only">(current)</span></span></a>
+                {% else %}
+                <a class="btn btn-light" href="?page={{ i }}">{{ i }}</a>
+                {% endif %}
+            {% endfor %}
+
+            {% if page_obj.has_next %}
+            <a class="btn btn-light" href="?page={{ page_obj.next_page_number }}">&raquo;</a>
+            {% else %}
+            <a type="button" class="btn btn-light"><span>&raquo;</span></a>
+            {% endif %}
+        </div>
+        {% endif %}
+    </div>
+
+    <div class="table-legend">
+        <p><b>Legend:</b></p>
+        <p><img src="{% static 'website_icons/info_ico.png' %}" alt="Details" width="20" height="20">Project details</p>
+        {% if user.is_superuser %}
+            <p><img src="{% static 'website_icons/del_ico.png' %}" alt="Delete" width="20" height="20">Delete the project</p>
+            <p><img src="{% static 'website_icons/edit_ico.png' %}" alt="Edit" width="20" height="20">Edit the project</p>
+        {% endif %}
+    </div>
+
+</div>
+
+{% endblock body_block %}

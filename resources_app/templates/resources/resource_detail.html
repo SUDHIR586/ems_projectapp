@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block body_block %}
+<div class="container">
+    <div class="jumbotron">
+        <div class="page-title">
+            <h2>Holiday details </h2>
+        </div>
+        <div class="detail-view-content">
+            <ul>
+                <li><b>Employee: </b> {{holiday.user.get_full_name}} </li>
+                <li><b>Approver: </b> {{holiday.approver_user.get_full_name}} </li>
+                <li><b>Start date: </b> {{holiday.start_date}} </li>
+                <li><b>End date: </b> {{holiday.end_date}} </li>
+                <li><b>Whether used: </b> {% if holiday.is_used %} Yes {% else %} No {% endif %} </li>
+                <li><b>Whether approved: </b> {% if holiday.is_approved %} Yes {% else %} No {% endif %} </li>
+            </ul>
+        </div>
+        <a class="detail-view-btn btn btn-dark" href="javascript:history.back()">Return</a>
+
+    </div>
+</div>
+{% endblock %}

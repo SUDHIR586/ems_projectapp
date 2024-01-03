@@ -1,0 +1,242 @@
+
+.page-title{
+    margin-top: 20px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.detail-view-btn{
+  margin-top: 20px;
+  margin-bottom: 20px;
+  margin-left:50%;
+  margin-right: 50%;
+}
+
+.detail-view-content{
+  margin-left: 15%;
+  margin-right: 15%;
+}
+
+.btn-action { /* przycisk pod formularzem*/
+    margin-top: 20px;
+    margin-bottom: 100px;
+}
+
+.create-btn{
+    margin-top: 40px;
+    width: 200px;
+}
+
+.book_detail_description{
+    text-justify: auto
+}
+
+ul {
+  list-style: none;
+}
+
+.button {
+    margin-bottom: 10px;
+}
+
+/* kolor linkow */
+a { 
+    text-decoration: none; 
+    color: black; 
+}
+
+h1{
+    text-align: center;
+}
+
+.signup-form{
+    margin-right: auto;
+    margin-left: auto;
+    width: 50%
+}
+
+
+
+.sign-up-card-counter-text{
+    text-align: right;
+}
+
+.login-form{
+    margin-right: auto;
+    margin-left: auto;
+    width: 50%
+}
+
+.login-btn{
+    width: 100%;
+    margin-top: 20px;
+}
+
+.sign-up-btn{
+    width: 100%;
+    margin-top: 20px;
+}
+
+.pagination_bar{
+    text-align: center;
+    margin-bottom: 40px;
+    margin-top: 10px;
+}
+
+.table-legend{
+    margin-bottom: 50px;
+}
+
+.table-legend img{
+    margin-right: 10px;
+}
+
+
+#collapse_current_borrow{
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+
+
+
+.search-bar{
+    padding-top: 40px; 
+    padding-bottom: 20px; 
+    margin: 0 auto;
+    width: 50%;
+}
+.search-button{
+    width: 100px;
+}
+
+.search-select{
+    width: 200px;
+    margin-right: 10px;
+    margin-left: 10px;
+}
+
+#collapse1{
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+#collapse2{
+    margin-top: 50px;
+    margin-bottom: 200px;
+}
+
+
+.add-button{
+    margin-top: 600px;
+    margin-bottom: 20px;
+}
+
+
+.profile-view-image{
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
+.menu-profile-image{
+    margin-left: 20px;
+}
+
+
+.messages-container {
+    height: 400px;
+    border: 1px solid #DDD;
+    position: relative;
+  }
+  
+  .messages {
+    box-sizing: border-box;
+    padding: 20px;
+    overflow: auto;
+    height: 400px;
+  }
+  
+  .user-list {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 100%;
+    height: 498px;
+    overflow: auto;
+    background: #EFEFEF;
+    margin: 0;
+    padding: 20px;
+    border-left: 1px solid #DDD;
+  }
+  
+  .user-list li {
+    display: block;
+    color: orange;
+    font-weight: bold;
+  }
+  
+  .username {
+    font-weight: bold;
+    color: orange;
+  }
+  
+  .timestamp {
+    font-size: 12px;
+    font-style: italic;
+    color: black;
+    text-align: right;
+  }
+  
+  .add-message {
+    margin-top: 20px;
+  }
+  
+
+
+  .msg-textarea{
+      margin-right: 50%;
+  }
+  
+  .message-msg-to-send-area{
+      width: 100%;
+      margin:0px auto 0px auto;
+  }
+
+  .btn-send-msg{
+    width: 100%;
+    margin:10px auto 0px auto;
+    height: 40px;
+
+  }
+
+  .mgs-users a{
+    text-decoration: none;
+  }
+
+
+  .mgs-users img{
+    border-radius: 50%;
+  }
+
+  .msg-container-img{
+    border-radius: 20px;
+  }
+
+  .pull-left{
+    width: 100%;
+  }
+
+  .pull-right{
+    width: 100%;
+  }
+
+  .msg-container-row-who{
+    color: black;
+    font-weight: bold;
+  }
+
+  .msg-container-row-msg{
+      word-wrap: break-word;
+      padding-bottom: 30px;
+      padding-left: 10px;
+      padding-right: 10px;
+  }

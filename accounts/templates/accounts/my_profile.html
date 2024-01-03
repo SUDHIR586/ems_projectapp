@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block body_block %}
+
+
+<div class="container text-center">
+    <div class="jumbotron">
+        <div class="page-title">
+            <h3>your profile</h3>
+        </div>
+
+        <div class="text-center profile-view-image">
+            {% if user.user_profile.image %}
+                <img src="{{user.user_profile.image.url}}" alt="avatar_img_error" height="300%" width="150">
+            {% endif %}
+        </div>
+
+        <ul>
+            <li><b>First name and Last name: </b>{{user_profile.user.get_full_name}}</li>
+            <li><b>Email: </b><a>{{user_profile.user.email}}</a></li>
+            <li><b>Phone: </b>{{user_profile.phone}}</li>
+            <li><b>Email: </b>{{user_profile.email}}</li>
+            <li><b>Aadhar: </b>{{user_profile.adhar}} </li>
+            <li><b>Address: </b>{{user_profile.street}} {{user_profile.house_number}} {{user_profile.post_code}} {{user_profile.city}} </li>
+            <br>
+
+            {% if user_profile.user_manager%}
+                <li><b>Manager: </b>{{user_profile.user_manager}} </li>
+            {% endif %}
+
+            <li><b>Assigned change: </b>{{user_profile.user_work_hours}} </li>
+            <li><b>Your status: </b>{{user_profile.user_state}} </li>
+            <br>
+
+            <li><b>Last login of the day: </b> {{user_profile.user.last_login}} </li>
+        </ul>
+
+    </div>
+</div>
+{% endblock %}

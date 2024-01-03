@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+{% load django_bootstrap5 %}
+
+{% block body_block %}
+<div class="container signup-form">
+    <h1>Register</h1>
+    <form method="POST" enctype="multipart/form-data">
+
+        {% csrf_token %}
+        <div id=myGroup>
+                    <div class="collapse show" id="collapseExample" data-parent="#myGroup">
+                        <div class="card card-body">
+                                <div class="sign-up-card-counter-text">Page 1 of 2</div>
+                                {% bootstrap_form register_form %}
+                                <button class="btn btn-primary card-btn"  type="button" data-toggle="collapse" data-target="#collapseExample2" aria-expanded="false" aria-controls="collapseExample2">
+                                      Next
+                                </button>
+                        </div>
+                    </div>
+                    <div class="collapse" id="collapseExample2" data-parent="#myGroup">
+                        <div class="card card-body">
+                                <div class="sign-up-card-counter-text">Page 2 of 2</div>
+                                {% bootstrap_form profile_form %}
+                                <a class="btn btn-primary card-btn" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+                                        Back
+                                </a>
+                                <input type="submit" class="btn btn-primary sign-up-btn" onclick="test()" value="register">
+                        </div>
+                    </div>
+            </div>
+
+            <div class="alert alert-danger" id="form-valid-msg" style="visibility:hidden; margin-top:30px;">
+                <strong>Błąd</strong> The form was not completed correctly
+            </div>
+    </form>
+</div>
+
+<script>
+    function test(){
+        var form_groups = document.getElementsByClassName('form-group')
+        for(i=0; i<form_groups.length; i++){
+            text_field = form_groups[i].getElementsByClassName('form-control')[0]
+            isValid = text_field.checkValidity()
+
+            if(isValid == false){
+                //console.log(form_groups[i].getElementsByClassName('form-control')[0].getAttribute('validationMessage'))
+                formValidMsgElem = document.getElementById('form-valid-msg')
+                formValidMsgElem.style.visibility = 'visible'
+                break;
+            }
+        }
+    }
+
+    $('.card-btn').on("click",function(){
+        if ($('#collapseExample').attr("class").indexOf("show") >= 0){
+            $('#collapseExample').removeClass('show')
+            $('#collapseExample2').addClass("show")
+        } else {
+            $('#collapseExample2').removeClass('show')
+            $('#collapseExample').addClass("show")
+        }
+
+        $('html,body').animate({ scrollTop: 50 }, 'slow');
+
+
+        console.log()
+        console.log()
+});
+</script>
+
+{% endblock body_block %}

@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block body_block %}
+
+<div class="container">
+    <h2 class="page-title">Do you want to delete the project?</h2>
+    <h4>Details</h4>
+    <div>
+            <ul>
+                <li><b>Name: </b> {{user_project.name}} </li>
+                <li><b>Client: </b> {{user_project.client}} </li>
+                <li><b>Contact: </b> {{user_project.contact}} </li>
+                <li><b>Number1: </b> {{user_project.number}} </li>
+                <li><b>Number2: </b> {{user_project.number_2}} </li>
+                <li><b>Status: </b> {{user_project.status}} </li>
+                <li><b>Project Manager: </b> {{user_project.id_project_pm.get_full_name}} </li>
+                <li>
+                    <b>Employees: </b>
+                    {% for employee in user_project.id_employee.all %}
+                        {{employee.get_full_name}}
+                    {% endfor %}
+                </li>
+
+                <li><b>Comments: </b> {{user_project.commants|safe|linebreaksbr}} </li>
+            </ul>
+        </div>
+
+        <form method="POST">
+            {% csrf_token %}
+            <a class="btn btn-dark" href="javascript:history.back()">Return</a>
+            <input type="submit" class="btn btn-danger" value="Delete">
+        </form>
+</div>
+{% endblock %}
